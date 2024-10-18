@@ -22,6 +22,11 @@ public class Main : MonoBehaviour
 
     private BoundsCheck bndCheck;
 
+    [Header("Effects")]
+    public GameObject destructionEffect;
+    public AudioClip destructionSound;
+
+
     void Awake()
     {
         S = this;
@@ -76,6 +81,11 @@ public class Main : MonoBehaviour
 
     static public void HERO_DIED()
     {
+        SFX.Instance.PlaySound(S.destructionSound);
+        
+        GameObject effect = Instantiate(S.destructionEffect, Hero.S.transform.position, Quaternion.identity);
+        S.StartCoroutine(S.DestroyEffectAfterDuration(effect));
+
         S.DelayedRestart();
     }
 
@@ -88,23 +98,36 @@ public class Main : MonoBehaviour
 
         return new WeaponDefinition();
     }
+
     static public void SHIP_DESTROYED(Enemy e)
     {
+        SFX.Instance.PlaySound(S.destructionSound);
+        GameObject effect = Instantiate(S.destructionEffect, e.transform.position, Quaternion.identity);
+        S.StartCoroutine(S.DestroyEffectAfterDuration(effect));
 
         if (Random.value <= e.powerUpDropChance)
         {
-
             int ndx = Random.Range(0, S.powerUpFrequency.Length);
             eWeaponType pUpType = S.powerUpFrequency[ndx];
 
-
-            GameObject go = Instantiate<GameObject>(S.prefabPowerUp);
+            GameObject go = Instantiate(S.prefabPowerUp);
             PowerUp pUp = go.GetComponent<PowerUp>();
 
             pUp.SetType(pUpType);
 
-
             pUp.transform.position = e.transform.position;
         }
+    }
+
+    private IEnumerator DestroyEffectAfterDuration(GameObject effect)
+    {
+        ParticleSystem ps = effect.GetComponent<ParticleSystem>();
+
+        if (ps != null)
+        {
+            yield return new WaitForSeconds(ps.main.duration + ps.main.startLifetime.constantMax);
+        }
+
+        Destroy(effect);
     }
 }

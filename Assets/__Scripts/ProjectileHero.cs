@@ -15,7 +15,7 @@ public class ProjectileHero : MonoBehaviour
 
     public eWeaponType type
     {
-        get { return (_type); }
+        get { return _type; }
         set { SetType(value); }
     }
 

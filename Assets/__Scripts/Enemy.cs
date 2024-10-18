@@ -66,7 +66,7 @@ public class Enemy : MonoBehaviour
                         calledShipDestroyed = true;
                         Main.SHIP_DESTROYED(this);
                     }
-                    Destroy(this.gameObject);
+                    Destroy(gameObject);
                 }
             }
             Destroy(otherGO);

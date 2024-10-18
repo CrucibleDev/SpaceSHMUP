@@ -82,6 +82,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12188d859d226b041b6c378fd265b88c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destructionEffect: {fileID: 0}
+  destructionSound: {fileID: 8300000, guid: c7560d2d2be3ebe43b9e5c5ecc6bfa44, type: 3}
   speed: 10
   fireRate: 0.3
   health: 10
