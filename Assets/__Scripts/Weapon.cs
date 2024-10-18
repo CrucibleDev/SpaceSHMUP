@@ -137,5 +137,5 @@ public class Weapon : MonoBehaviour
         nextShotTime = Time.time + def.delayBetweenShots;
         return p;
     }
-    
+
 }

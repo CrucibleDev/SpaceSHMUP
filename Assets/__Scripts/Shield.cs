@@ -14,18 +14,19 @@ public class Shield : MonoBehaviour
 
     void Start()
     {
-       mat = GetComponent<Renderer>().material; 
+        mat = GetComponent<Renderer>().material;
     }
 
     void Update()
     {
         int currlevel = Mathf.FloorToInt(Hero.S.shieldLevel);
-        if(levelShown != currlevel){
+        if (levelShown != currlevel)
+        {
             levelShown = currlevel;
-            mat.mainTextureOffset = new Vector2(0.2f * levelShown,0);
+            mat.mainTextureOffset = new Vector2(0.2f * levelShown, 0);
         }
 
-        float rZ = -(rotationsPerSecond*Time.time*360) % 360f;
-        transform.rotation = Quaternion.Euler(0,0,rZ);
+        float rZ = -(rotationsPerSecond * Time.time * 360) % 360f;
+        transform.rotation = Quaternion.Euler(0, 0, rZ);
     }
 }

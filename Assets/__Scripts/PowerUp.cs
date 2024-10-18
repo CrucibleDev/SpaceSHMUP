@@ -25,14 +25,14 @@ public class PowerUp : MonoBehaviour
     private BoundsCheck bndCheck;
     private Material cubeMat;
 
-    
+
     private eWeaponType _type;
     public eWeaponType type
     {
         get { return _type; }
         set
         {
-            SetType(value); 
+            SetType(value);
         }
     }
 
@@ -62,24 +62,24 @@ public class PowerUp : MonoBehaviour
     }
     void Update()
     {
-        cube.transform.rotation = Quaternion.Euler(rotPerSecond * Time.time); 
-        
-        float u = (Time.time - (birthTime + lifeTime)) / fadeTime; 
-                                                                   
+        cube.transform.rotation = Quaternion.Euler(rotPerSecond * Time.time);
+
+        float u = (Time.time - (birthTime + lifeTime)) / fadeTime;
+
         if (u >= 1)
         {
             Destroy(gameObject);
             return;
         }
-        
+
         if (u > 0)
         {
             Color c = cubeMat.color;
-            c.a = 1f - u; 
+            c.a = 1f - u;
             cubeMat.color = c;
-            
+
             c = letter.color;
-            c.a = 1f - (u * 0.5f); 
+            c.a = 1f - (u * 0.5f);
             letter.color = c;
         }
 
@@ -92,15 +92,15 @@ public class PowerUp : MonoBehaviour
     public void SetType(eWeaponType wt)
     {
         WeaponDefinition def = Main.GET_WEAPON_DEFINITION(wt);
-        cubeMat.color = def.powerUpColor; 
-                                          
-        letter.text = def.letter; 
-        _type = wt; 
+        cubeMat.color = def.powerUpColor;
+
+        letter.text = def.letter;
+        _type = wt;
     }
-    
+
     public void AbsorbedBy(GameObject target)
     {
-        
+
         Destroy(gameObject);
     }
 }
